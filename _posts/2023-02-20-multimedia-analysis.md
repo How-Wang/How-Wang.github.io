@@ -5,6 +5,7 @@ subtitle: 了解多媒體，就是了解世界的第一步
 categories: 大學筆記
 tags: [電腦視覺, 多媒體]
 ---
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 ## 0. 大綱
 ![](https://i.imgur.com/ojIBf7U.png)
 
