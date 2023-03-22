@@ -44,7 +44,7 @@ tags: [電腦視覺, 多媒體]
     - $n_k$ is the number of pixels in the image having gray level $r_k$
     </span>
 - normalized histogram
-    - $$p(r_k) = n_k/n$$
+    -  {% raw %} $$p(r_k) = n_k/n$$ {% endraw %}
     - $n$ 是圖片 pixel 的總數
 - ![](https://i.imgur.com/ltlHdZQ.png)
 ### 1.5 Color fundamentals
