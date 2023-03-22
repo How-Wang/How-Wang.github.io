@@ -5,7 +5,6 @@ subtitle: 了解多媒體，就是了解世界的第一步
 categories: 大學筆記
 tags: [電腦視覺, 多媒體]
 ---
-<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
 ## 0. 大綱
 ![](https://i.imgur.com/ojIBf7U.png)
 
@@ -21,14 +20,13 @@ tags: [電腦視覺, 多媒體]
 
 ### 1.2 Image Sampling and Quantization
 圖像雖然實際上是連續的值，但電腦不可能把無窮多個資料點都紀錄，所以我們需要
-- <span style="background-color: #f7d6b9; display: block; padding: 2% 2% 0.5% 2%; border-radius: 15px;">影像調整
+- <span style="background-color: #f7d6b9; display: block; padding: 2% 2% 0.5% 2%; border-radius: 15px;">影像調整</span>
     - **Sampling**
         - 量變
         - 固定距離取樣
     - **Quantization**
         - 質變
         - 將數值限定在固定範圍之內（顆粒度變大）
-</span>
 - ![](https://i.imgur.com/Y1MMHWW.png)
 ### 1.3 Digital Image Representation
 - Dynamic range
