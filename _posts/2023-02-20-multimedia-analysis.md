@@ -28,6 +28,7 @@ tags: [電腦視覺, 多媒體]
         - 質變
         - 將數值限定在固定範圍之內（顆粒度變大）
 - ![](https://i.imgur.com/Y1MMHWW.png)
+
 ### 1.3 Digital Image Representation
 - Dynamic range
     - ![](https://i.imgur.com/LYuC1Gd.png)
@@ -37,16 +38,17 @@ tags: [電腦視覺, 多媒體]
     - 可以發現需要儲存的數量差距很大
 - Gray-Level resolution
     - ![](https://i.imgur.com/htjz6UO.jpg)
+    
 ### 1.4 Histogram
 一張灰階圖片的 histogram in the range $[0, L-1]$ 是一個**離散**的函數
-- <span style="background-color: #e2f8f0; display: block; padding: 2% 2% 0.5% 2%; border-radius: 15px;">$h(r_k) = n_k$
+- <span style="background-color: #e2f8f0; display: block; padding: 2% 2% 0.5% 2%; border-radius: 15px;">$h(r_k) = n_k$ </span>
     - $r_k$ is the $k$th gray level and
     - $n_k$ is the number of pixels in the image having gray level $r_k$
-    </span>
 - normalized histogram
   - $$p(r_k) = n_k/n$$
 - $n$ 是圖片 pixel 的總數
 - ![](https://i.imgur.com/ltlHdZQ.png)
+
 ### 1.5 Color fundamentals
 - RGB
     - 因為人的視錐細胞組成，才分成藍綠紅三原色
@@ -63,18 +65,17 @@ tags: [電腦視覺, 多媒體]
     - ![](https://i.imgur.com/OVeNk40.png)
 - HSI
     - 前述三原色為基底的色彩模式，適合電腦來顯示
-    - <span style="background-color: #ffd7c1; display: block; padding: 2% 2% 0.5% 2%; border-radius: 15px;">特色
+    - <span style="background-color: #ffd7c1; display: block; padding: 2% 2% 0.5% 2%; border-radius: 15px;">特色</span>
         - RGB 並不適合人類去辨識，因為人類對「亮度」比較敏感
         - 有了 HSI 如此一來，我們如果可以把亮度與彩度分開來，圖形在**壓縮**的時候，即可以盡量壓縮彩度、保留色度，做到效果最好的呈現
-    </span>
     - H：hue 色調
     - S：saturation 飽和度
         - H, S 統稱 chromaticity
     - I：brightness intensity 亮度
     - ![](https://i.imgur.com/dDGD4OI.png)
-    - <span style="background-color: #e2f8f0; display: block; padding: 2% 2% 0.5% 2%; border-radius: 15px;">可以想成 RGB 的正方體立起來，直軸就是 brightness
+    - <span style="background-color: #e2f8f0; display: block; padding: 2% 2% 0.5% 2%; border-radius: 15px;">可以想成 RGB 的正方體立起來，直軸就是 brightness</span>
         - ![](https://i.imgur.com/xCGGOCW.png)
-        - ![](https://i.imgur.com/NxNi0SE.png)</span>
+        - ![](https://i.imgur.com/NxNi0SE.png)
     - 又被稱為 HSV、HSL
     - 轉換公式
         - ![](https://i.imgur.com/bPh8tG2.png)
@@ -104,10 +105,10 @@ tags: [電腦視覺, 多媒體]
     - ex: YUV YIQ YCbCr（都有固定的轉換公式）
     - ![](https://i.imgur.com/DW0uJrx.png)
     - ![](https://i.imgur.com/qMtZVvU.png)
-- <span style="background-color: #c8d8df; display: block; padding: 2% 2% 0.5% 2%; border-radius: 15px;">Chroma Subsampling
+- <span style="background-color: #c8d8df; display: block; padding: 2% 2% 0.5% 2%; border-radius: 15px;">Chroma Subsampling</span>
     - 4:4:4、4:2:2(每四個點，記兩個Cb、兩個Cr)、4:1:1、4:2:0(人為決定雖然命名奇怪)
     - ![](https://i.imgur.com/DuqCfmL.png)
-    - Y 是代表亮度</span>
+    - Y 是代表亮度
 - Motion Estimation
     - 不需要每個畫面都去紀錄，只需要紀錄每張彼此的「差距」即可（但還是需要記第一張）
     - 找出兩張圖片內的物件的 Motion Vector
@@ -187,11 +188,11 @@ tags: [電腦視覺, 多媒體]
         - ![](https://i.imgur.com/BFDk7Wv.png)
 
 ### 3.3 Evaluation
-- <span style="background-color: #c8d8df; display: block; padding: 2% 2% 0.5% 2%; border-radius: 15px;">數值意義
+- <span style="background-color: #c8d8df; display: block; padding: 2% 2% 0.5% 2%; border-radius: 15px;">數值意義</span>
     - precision：找出來的，正確比例
     - recall、truth positive rate：全部正確，找出的比例
     - false positive rate：全部錯誤，找出的比例
-</span>
+
 - ![](https://i.imgur.com/FFC0eUi.png)
 - ![](https://i.imgur.com/6Rpe5Uq.png)
 - PR(precision vs recall)
@@ -360,6 +361,7 @@ content-based image retrieval
 
 ## 6. Dimension Reduction
 高維的詛咒：高維空間中，任意兩個距離都很遠，都差不多遠
+
 ### 6.1 Principal Component Analysis
 利用資料維度降低，得知資訊
 ![](https://i.imgur.com/7N2gwfF.png)
