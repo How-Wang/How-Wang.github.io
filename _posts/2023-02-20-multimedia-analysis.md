@@ -198,7 +198,7 @@ tags: [電腦視覺, 多媒體]
 - PR(precision vs recall)
     - ![](https://i.imgur.com/r2b0jcA.png)
     - 兩者通常是 trade-off
-- ROC(Ture positive rate vs False positive rate)
+- ROC Receiver operating characteristic(True positive rate vs False positive rate)
     - ![](https://i.imgur.com/eZnTDcN.png)
 - PR vs ROC
     - <span style="background-color: #e2f8f0; display: block; padding: 2% 2% 0.5% 2%; border-radius: 15px;">ROC 的 false positive rate 通常都很小（分母有通常極大的 true positive），所以就算 false positive（false positive rate 的分子） 很大，因為 true positive+false positive（false positive rate 的分母）還是更大，故 ROC 的 false positive rate 保持很小，所以理論上 ROC 比較「樂觀」</span>
@@ -291,7 +291,7 @@ content-based image retrieval
     - ![](https://i.imgur.com/nF9ZOcv.png)
 - **histogrma intersection(D1)**
     - 改成兩者的交疊程度（取 min），如果有取 normalize （長度標準變相同）就是 r 取 1
-- **histogram enclidean distance(D2)**
+- **histogram euclidean distance(D2)**
     - 兩者相減取平方，就是 r 取 2
     - 可以用線性代數方法表示
 - **Binary Set Hamming Distance (D3)**
@@ -385,6 +385,7 @@ content-based image retrieval
     - ![](https://i.imgur.com/WeTmhRS.png)
 
 ## 6. Dimension Reduction
+
 ### 6.0 Curse of Dimensionality
 - 二維中，一個充滿一個正方形圓形，佔了該正方形的 $78.5\%$ ($\frac{4}{\pi}$)
 - 三維中，一顆充滿一正方體的球，只佔了 $52.3\%$ ，約只有一半。
@@ -420,8 +421,8 @@ content-based image retrieval
 - 最後直接把數值「低」的，表示概念很弱，直接 truncate 掉
 
 ### 6.3 Multidimensional Scaling (MDS)
-- Goal: represent data points in some lowerdimensional space such that the distances between points in that space correspond to the distance between points in the original space
-- 高維的某些點接近，低維度也要接近
+- **`Goal`**:represent data points in some lowerdimensional space such that the distances between points in that space correspond to the distance between points in the original space
+- 原本高維的某些點距離，在壓縮後的低維度也要相似
 - ![](https://i.imgur.com/nOccoDG.png)
 - Stress：![](https://i.imgur.com/QTYygId.png)
     - 演算法：
@@ -465,11 +466,11 @@ content-based image retrieval
 
 ### 7.2 Gaussian Mixture Model (GMM)
 
-#### 7.2.1 Introduciton
+#### 7.2.1 Introduction
 - 我們可以藉由調整並且組合很多的Gaussians with different means and covariance，那就幾乎可以模擬出所有分佈
 - ![](https://i.imgur.com/Bu8N1Vh.png)
 - ![](https://i.imgur.com/xstK8qT.jpg)
-- $\pi$ 表示權重 weighted，再把每個Gaussian desity相乘後相加
+- $\pi$ 表示權重 weighted，再把每個Gaussian density相乘後相加
 - 觀察![](https://i.imgur.com/YrOFhnC.png)
 - 已知貝式定理![](https://i.imgur.com/rVmYtPK.png)
 - 現在要試著找處最好的幾組 Gaussian，最能描述目前的機率分佈![](https://i.imgur.com/tMDwDyH.png)
