@@ -2,7 +2,7 @@
 layout: post
 title: 多媒體內容分析
 subtitle: 了解多媒體，就是了解世界的第一步
-categories: 大學筆記
+categories: computer vision
 tags: [電腦視覺, 多媒體]
 ---
 ## 0. 大綱
@@ -335,32 +335,63 @@ content-based image retrieval
     - Structural, Statistical, Spectral(analysis in spatial-frequency 光譜、最成功)
 - CNN 就是學 texture 的變化
 - textural property
-    - 粗糙程度
-    - 對比程度
-    - 方向性
-    - 直線形
-    - 規則性
-    - 顆粒度
-
-#### 5.3.1 spectral texture feature
-- ![](https://i.imgur.com/Bx25stY.jpg)
-- 每個 almega 都會對應到一組 sin 與 cos
-    - ![](https://i.imgur.com/v6Rfn9C.png)
-    - 上方為分析
-    - 下方為合成
-    ```
-    ex:(4,5,6) = 4*(1,0,0) + 5*(0,1,0)+ 6*(0,0,1)
-    要怎麼得到4?就是 (4,5,6) 跟(1,0,0) 做內積
-    等號左到右叫分析，右到左就是合成
-    ```
-    ```
-    fourier tansform 就是做一樣的事情，把 x(t) 跟 e 這個基底做很多內積
-    e^(-jwt) 也就是尤拉公式可以轉成 sin cos 相加
-    inverce 跟 forward 基底差別（指數差一個負號），就是共軛複數
-    ```
+    - 粗糙程度 Coarseness
+    - 對比程度 Contrast
+    - 方向性 Directionality
+    - 直線形 Line-likeness
+    - 規則性 Regularity
+    - 顆粒度 Roughness
+- spectral texture feature
+    - ![](https://i.imgur.com/Bx25stY.jpg)
+    - 一個函數為**週期性**，那他就可以被 $sin$ 跟 $cos$ 乘上係數 `coefficient` 來組成，稱為 `Fourier series`
+    - 一個函數為**非週期性**，那他也可以被 $sin$ 跟 $cos$ 乘上 `weighting function`，稱為 `Fourier transform`
+- Fourier transform
+    - 每個 almega 都會對應到一組 sin 與 cos
+        - ![](https://i.imgur.com/v6Rfn9C.png)
+        - 上方為分析
+        - 下方為合成
+        ```
+        ex:(4,5,6) = 4*(1,0,0) + 5*(0,1,0)+ 6*(0,0,1)
+        要怎麼得到4?就是 (4,5,6) 跟(1,0,0) 做內積
+        等號左到右叫分析，右到左就是合成
+        ```
+        ```
+        fourier tansform 就是做一樣的事情，把 x(t) 跟 e 這個基底做很多內積
+        e^(-jwt) 也就是尤拉公式可以轉成 sin cos 相加
+        inverce 跟 forward 基底差別（指數差一個負號），就是共軛複數
+        ```
+        - ex: 1
+            - ![](https://i.imgur.com/nkJ4Sut.jpg)此圖經二維離散傅立葉轉換後：（用離散轉換是因為$f(x)$是像素之值的函數，非連續（輸入值為像素的位置））
+            - ![](https://i.imgur.com/nYMZP3G.jpg)
+            - 可以觀察到：
+                - 橫向：圖一頻域的頻率高，較窄，而圖二時域裡可以看到「亮點」的橫軸長度較長
+                - 縱向：圖一頻域的頻率地，較寬，而圖二時域裡可以看到「亮點」的橫軸長度較短
+        - e.g. 2
+            - ![](https://i.imgur.com/SZaNQ72.jpg)
+            轉換後：
+            - ![](https://i.imgur.com/kYjAbQo.jpg)
+            - 觀察紅線方項，原圖中明暗變化多有上下起伏，而頻域圖中則對應到同個方向會出現一道光棘。
+                - 這是因外在該方向有很多不規則之細節部分的小變化，越細微的變化越需要高頻率的 $cosine$ 函數去擬合，因此可以看到該方向頻率權重一直延伸到很遠的地方。
+    - Two-dimensional Discrete Fourier Transform
+        - ![](https://i.imgur.com/kV66g6k.png)
+        - ![](https://i.imgur.com/7CVjnxw.png)
+        - ![](https://i.imgur.com/wFCkDV8.png)
+- Gabor Texture
+    - Fourier coefficients 是依據 entire image (Global) → 失去 local information
+    - 因此 **`Gabor`** 就是 local spatial frequency analysis
+    - Gabor kernels：類似 **`Fourier basis`** 與 **`Gaussian`** 相乘
+    - Image $I(x,y)$ convoluted with Gabor filters $h_{mn}$ (totally M x N)
+        - ![](https://i.imgur.com/LCkp7Vi.png)
+    - ![](https://i.imgur.com/WeTmhRS.png)
 
 ## 6. Dimension Reduction
-高維的詛咒：高維空間中，任意兩個距離都很遠，都差不多遠
+### 6.0 Curse of Dimensionality
+- 二維中，一個充滿一個正方形圓形，佔了該正方形的 $78.5\%$ ($\frac{4}{\pi}$)
+- 三維中，一顆充滿一正方體的球，只佔了 $52.3\%$ ，約只有一半。
+- 越多維，該值就越小，趨近0
+- 假設每一維度之分量呈高斯分佈，那在高維度中，所有**點都在距離圓心差不多遠的距離**，因為都很小
+    - ![](https://i.imgur.com/hgYMZ7P.png)
+    - 此時很難去找出去區域性的 pattern
 
 ### 6.1 Principal Component Analysis
 利用資料維度降低，得知資訊
@@ -456,4 +487,3 @@ content-based image retrieval
 ### 7.3 Hidden Markov Model (HMM)
 
 ### 7.4 Support Vector Machine (SVM)
-
