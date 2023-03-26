@@ -2,7 +2,7 @@
 layout: post
 title: 多媒體內容分析
 subtitle: 了解多媒體，就是了解世界的第一步
-categories: computer vision
+categories: 電腦視覺
 tags: [電腦視覺, 多媒體]
 ---
 ## 0. 大綱
