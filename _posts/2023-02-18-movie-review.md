@@ -2,7 +2,7 @@
 layout: post
 title: 文學評論與影評寫作
 subtitle:  「評論能力是一種判斷力。」
-categories: 大學筆記
+categories: 電影
 tags: [文學, 評論]
 ---
 
