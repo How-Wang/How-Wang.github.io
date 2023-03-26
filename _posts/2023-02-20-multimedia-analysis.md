@@ -89,7 +89,7 @@ tags: [電腦視覺, 多媒體]
     - ![](https://i.imgur.com/zmRYad1.png)
     - <span style="background-color: #c8d8df; display: block; padding: 2% 2% 0.5% 2%; border-radius: 15px;">Histogram is one of the **most useful feature** to describe images or be the basis for similarity measure</span>
 - histogram-based difference
-    - $D_j(I_1, I_2) = \Sigma_{i=1}^{B}|H_j^1(i) - H_j^2(i)|$
+    - $D_j(I_1, I_2) = \Sigma_{i=1}^{B}\|H_j^1(i) - H_j^2(i)\|$
     - $D(I_1, I_2) = w_1D_1 + w_2D_2 + w_3D_3$
     - $j$ 指不同 level、I 為圖片、w 為 weight
 
