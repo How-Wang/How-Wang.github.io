@@ -68,7 +68,7 @@ tags: [電腦視覺, 多媒體]
 #### 4.1 High : Sobel Filter
 - 只用**圖像的梯度**作為判斷依據，且對於不同方向性的邊界是用分開的面罩(Mask)來做偵測，當梯度變化超過一個閥值，即判斷為邊界。
 - [定義](https://zh.m.wikipedia.org/zh-tw/%E7%B4%A2%E8%B2%9D%E7%88%BE%E7%AE%97%E5%AD%90)：
-- <span style="background-color: #CDE8FA; display: block; padding: 2% 2% 0.5% 2%; border-radius: 15px;">${G_{x} ={\begin{bmatrix}+1&0&-1 \\ +2&0&-2 \\ +1&0&-1\end{bmatrix}}* {A} \quad {\mbox{and}}\quad {G_{y}} ={\begin{bmatrix}+1&+2&+1 \\ 0&0&0 \\ -1&-2&-1\end{bmatrix}}* {A} }$<br>
+- <span style="background-color: #CDE8FA; display: block; padding: 2% 2% 0.5% 2%; border-radius: 15px;">$\begin{equation} {G_{x} = {\begin{bmatrix} +1 & 0 & -1 \\ +2 & 0 & -2 \\ +1 & 0 & -1 \end{bmatrix}} * {A} \quad {\mbox{and}}\quad {G_{y}} = {\begin{bmatrix} +1 & +2 & +1 \\ 0 & 0 & 0 \\ -1 & -2 & -1 \end{bmatrix}} * {A} } \end{equation}$<br>
     圖像的每一個像素的橫向及縱向梯度近似值可用以下的公式結合，來計算梯度的大小<br>
     ${ {G} ={\sqrt {G_{x} ^{2}+G_{y} ^{2}}}}$
     <br>用以下公式計算梯度方向
@@ -77,7 +77,7 @@ tags: [電腦視覺, 多媒體]
 
 #### 4.2 High : Scharr Filter
 - 就是將 Sobel 的矩陣參數改變
-- 定義：<span style="background-color: #c8d8df; display: block; padding: 2% 2% 0.5% 2%; border-radius: 15px;">${ {G_{x}} = {\begin{bmatrix}+3&0&-3 \\ +10&0&-10 \\ +3&0&-3\end{bmatrix}}* {A} \quad {\mbox{and}}\quad {G_{y}} ={\begin{bmatrix}+3&+10&+3 \\ 0&0&0 \\ -3&-10&-3\end{bmatrix}}* {A} }$</span>
+- 定義：<span style="background-color: #c8d8df; display: block; padding: 2% 2% 0.5% 2%; border-radius: 15px;">${ {G_{x}} = {\begin{bmatrix} +3 & 0 & -3 \\ +10 & 0 & -10 \\ +3 & 0 & -3 \end{bmatrix}}* {A} \quad {\mbox{and}}\quad {G_{y}} ={\begin{bmatrix} +3 & +10 & +3 \\ 0 & 0 & 0 \\ -3 & -10 & -3 \end{bmatrix}} * {A} }$</span>
 - 比 Sober 更加精確(accurate)
     - ![](https://i.imgur.com/8tDH7qj.png)
 
