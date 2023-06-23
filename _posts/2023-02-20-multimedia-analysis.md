@@ -486,5 +486,458 @@ content-based image retrieval
 
 
 ### 7.3 Hidden Markov Model (HMM)
+- [Hidden Markov Model Clearly Explained! Part - 5](https://www.youtube.com/watch?v=RWkHJnFj5rY)
+- [Hidden Markov Models](https://www.youtube.com/playlist?list=PLix7MmR3doRo3NGNzrq48FItR3TDyuLCo)
+
+#### 7.3.1 elements of HMM
+- ![](https://i.imgur.com/MvutSBm.png)
+    - $N$: the number of states in the model
+    - $M$: the number of distinct observation symbols per state
+    - The **state-transition** probability when state from $i$ to $j$
+        - $A=\{a_{ij}\}$
+    - The **observation** symbol probability distribution when state is in $j$
+        - $B=\{b_j(k)\}$
+    - The initial state distribution
+        - $\pi$
+- To describe an **HMM**, we usually use the compact notation $\lambda = (A,B,\pi)$
+
+#### 7.3.2 Probability evaluation
+![](https://i.imgur.com/paxaBDd.png)
+- 最直覺算法：
+    - 總共有 $N^T$ 種 state sequences
+    - 如果先固定一種 $q = (q_1q_2...q_T)$
+        - ![](https://i.imgur.com/7x6ht1e.png)
+        - ![](https://i.imgur.com/fXqUu4w.png)
+    - 一種 $q = (q_1q_2...q_T)$ 的機率
+        - ![](https://i.imgur.com/ikQv0P3.png)
+    - 故總機率為
+        - ![](https://i.imgur.com/IfQCGGk.png)
+    - 但複雜度 $TN^T$ 太高
+        - ![](https://i.imgur.com/ifFSjNZ.png)
+        - $2T-1$ 的減一表示乘法第一個數字不用乘
+        - $+(N^T-1)$ 表示最後 $N^T$ 種情況都要相加在一起
+
+- **Forward Procedure**
+    - $\alpha_t(i)$ 表示已知模型 $\lambda$ 在時間 $t$ 時的 state 為 $S_i$
+    - ![](https://i.imgur.com/DFsSuXi.png)
+    - inductive 圖解，就是把所有會到達 state $S_j$ 的情況 prob 都加起來
+        - ![](https://i.imgur.com/XTQ4D2n.png)
+    - 整體圖示
+        - ![](https://i.imgur.com/0iFDeIY.png)
+
+- **Backward Procedure**
+    - 跟 **Forward** 差不多，只是由反方向算過來
+    - ![](https://i.imgur.com/IOmd3Nf.png)
+    - inductive 圖解
+        - ![](https://i.imgur.com/EIlFYCN.png)
+
+#### 7.3.3 Optimal state sequence
+![](https://i.imgur.com/uRZ2Tq3.png)
+- 先只關注在單一的 state 找到最好（機率最高）的情況
+    - ![](https://i.imgur.com/jeMGmlz.png)
+    - 圖示：![](https://i.imgur.com/MZ5F8AS.png)
+- 但他們並不是 independent，如果選擇每一個最好出現的情況，那也許 state 本身不會相連
+    - ![](https://i.imgur.com/3XKR8j0.png)
+- **Viterbi Algorithm**
+    - 必須考慮到先前狀況，定義
+        - ![](https://i.imgur.com/qeklKVq.png)
+    - 每選擇一個 state（$max$函數）都要考慮到前一個 transition prob $a_{ij}$ 跟 observation prob $b_j(O_{t+1})$
+        - ![](https://i.imgur.com/VOgfahS.png)
+    - 總演算法
+        - ![](https://i.imgur.com/JCqEAkf.png)
+            - $\psi$ 是為了找出前面的 State
+
+#### 7.3.4 Parameter estimation
+![](https://i.imgur.com/cE4J14Q.png)
+- 使用 **Baum-Welch algorithm**
+    - 但只能找到 locally optimal result
+- 先定義新的符號 $\xi$ 表示 state 從 $i$ 到 $j$ 的機率
+    - ![](https://i.imgur.com/fLYgRdb.png)
+    - 可以看成 $\alpha$ 與 $\beta$ 的組合
+        - 圖示：![](https://i.imgur.com/pYR6Q1I.png)
+        - 算示：![](https://i.imgur.com/LpLpIXY.png)
+- 挑整方法
+    - 把 $\gamma$ 和 $\xi$ 做跨時間的總和，就能夠以 state 的角度，去得知平均的經過狀況(expected number)，也就是機率最大的情況
+    - ![](https://i.imgur.com/Lk2hJsf.png)
+    - 因此就能夠進而調整 $a$、$b$、$\pi$，找到機率最大的 $\bar a$、$\bar b$、$\bar \pi$
+    - ![](https://i.imgur.com/9SBnfhC.png)
+- 結論：
+    - ![](https://i.imgur.com/miB4AcF.png)
+    - ![](https://i.imgur.com/Hh7og2d.png)
 
 ### 7.4 Support Vector Machine (SVM)
+
+#### 7.4.1 definition
+- 用一個超平面，來切割資料點
+    - 超平面 `ax + by + c = 0`
+    - 如何決定超平面？
+        - 傾斜程度：法向量
+        - 與原點距離：bias
+- 超平面以上為 +1，以下為 -1
+- 需要符合的特性：
+    - ![](https://i.imgur.com/38jiddC.jpg)![](https://i.imgur.com/zlYBa8w.jpg)
+- 最好的效果：
+    - 開一條運河，黑點白點都在運河兩邊，運河越寬越好
+        - ```
+            我們求極值的情況，不喜歡極大，因為最大可以到無限大，數學式很難表達，
+            而喜歡極小值，最小就是 0，數學也就很好運算。
+            ```
+        - ![](https://i.imgur.com/9bXKRht.png)
+    - 但運河我們可以容許一些誤差
+        - ![](https://i.imgur.com/cz9XXla.jpg)
+        - ![](https://i.imgur.com/OBeZhdp.png)
+        - $\Gamma$ 是誤差
+        - $C$ 是允許誤差的權重
+    - 運算的過程會遇到 Dual Problem，也就是一開始是要解上述的式子，但我們可以推導出，另外一個式子，用來跟資料集 dot product 運算，最後相加與加上 bias，可以直接從正負號看出結果，相當簡單！
+    - ![](https://i.imgur.com/ns01vpT.png)
+
+#### 7.4.2 Kernel Trick
+- 前提：
+    - 剛剛的推倒都屬於 **線性結構**
+    - 普遍做法為，在低維沒辦法的用線性區分，那我們就利用 Mapping 方法，Mapping 到更高的維度，就可以在高維區分了。![](https://i.imgur.com/0KmFDY9.png)
+- 但我們知道，剛剛只需要跟資料集做 mapping 即可以看出結果，但可不可以也不需要 mapping 就做到三維內積的結果，而這就是 kernel trick
+    - ![](https://i.imgur.com/YHu3hbZ.png)
+    - ![](https://i.imgur.com/0MbPhDE.png)
+    - ![](https://i.imgur.com/d6YjDdP.png)
+
+#### 7.4.3 Multiclass SVMs
+- 用**不是誰**來分類（one against one）
+    - ![](https://i.imgur.com/vYGVn59.png)
+- 當資料不多時（以萬筆計算），SVM 就可以有很棒的效果，DL 之前的霸主
+- LIBSVM：目前最主流的 library 之一
+
+## 8. Audio Signals
+
+### 8.1 Introduction
+- 聲音就是一種波動現象，跟光很像
+    - ![](https://i.imgur.com/Yfgmi08.png)
+- 所以也需要將波 **數位化**
+    - ![](https://i.imgur.com/v6ckkJD.png)
+
+#### 8.1.1 Sampling
+- 取樣理論 ***`Nyquist theorem`***
+    - For audio, typical sampling rates are from 8 kHz (8,000 samples per second) to 48 kHz.
+    - 假設為週期性波，如果 **取樣頻率跟波形頻率一樣**，那永遠只會取樣到同一個點，就會誤以為是一條線，如下圖（波形圖的正負表疏密）
+        - ![](https://i.imgur.com/bAvU2JS.png)
+    - 如果取樣頻率再高一點，結果也是不對的，不正確模擬的頻率，就稱為 Alias frequency
+        - ![](https://i.imgur.com/5UQz8uD.png)
+    - **`Nyquist Theorem`**：所以 Nyquist 說最少要 sample 訊號 frequency 的兩倍
+    - **`Nyquist frequency`**：如果機器只能 handle 150,000 hz，那波形只能接受 75,000 hz 的波形，75,000 hz 就是 Nyquist frequency，進來機器前會經過濾波器。
+
+#### 8.1.2 Quantization
+- 通常 uniform quantization rates 是 8-bit 跟 16-bit
+    - 8-bit 有 256 levels
+    - 16-bit 有 65536 levels
+- **Linear and Nonlinear Quantization**
+    - Non-uniform quantization
+        - 聲音是因地制宜的，因此 quantization 必須跟周圍環境音比較，才決定
+    - **Weber’s Law**：人類的感覺
+        - ![](https://i.imgur.com/7UBYLdX.png)
+    - Quantization 的方式
+        - 當 r(response)要是 uniform，s(stimulation)就不會是 uniform
+            - ![](https://i.imgur.com/iHR1Hp8.png)
+        - 兩種 uniform 方式
+            - ![](https://i.imgur.com/XNFZXZo.png)
+            - 但兩種都差不多
+            - ![](https://i.imgur.com/KvNuQKq.png)
+
+#### 8.1.3 Audio Filter
+- 我們要把一些不重要的資料去除，以免後方也不好處理
+- 人能夠發出 50Hz to 10kHz，但機器處理大小要 2 的次方，故取 20Hz 到 20kHz
+- 很難從 time domain 看出規則，所以要轉成 frequency domain，也因為人的聽覺就是 based on frequency domain
+    - 使用傅立葉轉換
+- **Short-Time Fourier Transform (STFT)**
+    - 切成很多小段小段
+    - 而每一段，短時間內的訊號是不變的
+    - 每一段也都會先乘上各自的權重(window function)
+    - ![](https://i.imgur.com/XH0tLo7.png)
+    - 【補充】不同的 Window funtion：
+        - 公式：![](https://i.imgur.com/5wB0JA6.png)
+        - 結果：![](https://i.imgur.com/KnIOfT0.png)
+    - 最後再作傅立葉轉換
+        - ![](https://i.imgur.com/8taTfas.png)
+        - 第一部分整條的效果不好
+        - 第二三四部分的 over-lapping 就可以觀察出片段跟片段之間的關係
+
+### 8.2 Features
+- Short-term frame level vs. long-term clip level
+    - frame：10~40 ms，是為基本單位
+    - clip 為一系列的 frame
+    - ![](https://i.imgur.com/pSEhwno.png)
+
+#### 8.2.1 Frame level Times features
+- 用 $N$ to denote the frame length, and $s_n(i)$ to denote the $i_{th}$ sample in the $n_{th}$ audio frame.
+- **Volume**：
+    - ![](https://i.imgur.com/vNSLPhN.png)
+    - 會被錄音設備影響，所以要做 Normalize
+- **Zero Crossing Rate**：
+    - 過零率，聲音變化時，通過零的比例
+    - 過零率越高，頻率應該會越高，所以用聲音的變化狀況推估頻率
+    - ![](https://i.imgur.com/PEjRisO.png)
+    - 可以用來判斷 unvoiced speech，母音就是 unvoiced speech，聲音可能小小的不明顯、但短時間內有快速變化！
+- **Pitch**：
+    - 音高
+    - 一段聲音波的基本頻率
+    - voiced speech(母音)、harmonic(泛音) 通常都有很好的 pitch
+    - ![](https://i.imgur.com/0z52iE9.png)
+    - ![](https://i.imgur.com/2oRSgKe.png)
+        - x軸 $l$ 表示多久取樣一次
+        - $R(l)$ 相乘是重複狀況
+        - $A(l)$ 相減是相反狀況
+        - 目標是找多久重複一次，故 $R(l)$ 我們要看山峰、$A(l)$ 要看波谷
+        - 波型的週期越小，表聲音的頻率越高
+
+#### 8.2.2 Frame level Spectral features：
+- 光看 time domain 很難得知所有的特性，因此我們可以將其轉至 frequency domain
+- 固定時間取樣，作傅立葉轉換
+- ![](https://i.imgur.com/p6PQTV4.jpg)
+    - 第二張圖的顏色深淺表示 frequency 的強弱
+- $S_n(\omega)$
+    - 表示特定頻率的能量
+- **Frequency centroid, brightness**：
+    - 頻率的能量加權平均
+    - ![](https://i.imgur.com/Rszx59a.png)
+- **Bandwidth**：
+    - 標準差
+    - ![](https://i.imgur.com/GR25Nyt.png)
+- **Subband Energy Ratio**：
+    - 不同頻率區段的能量值
+    - ![](https://i.imgur.com/gEwEwOC.png)
+    - four subbands are 0-630 Hz, 630-1720 Hz, 1720-4400 Hz, and 4400-11025 Hz.
+- **Spectral Flux**：
+    - 相鄰時間（n、n-1）、相同頻率（k）的能量差值
+        - ![](https://i.imgur.com/kOHneUN.png)
+    - ![](https://i.imgur.com/NH8AJCL.png)
+        - The SF values of speech are higher than those of music. 因為音樂可以連續，如果演講也連續就糊在一起了...
+- **Spectral Rolloff**：
+    - The $95th$ percentile of the power spectral distribution
+    - 看累積到的 $95th$ 能量在哪裡，就可以看出能量是往右還是往左偏斜
+- **MFCC (Mel-Frequency Cepstral Coefficients)**
+    - 不知道要選什麼 feature 就選他，聲音界的 color histogram
+    - 把剛剛的 frequency domain 圖形結果再做一次傅立葉轉換，觀察出各自頻率區段內的變化狀況，稱為 Ceptrum
+        - ![](https://i.imgur.com/GfafMul.png)
+        - Human pitch perception is most accurate between 100Hz and 1000Hz.
+            - Linear in this range
+            - Logarithmic above 1000Hz
+        - A mel is a unit of pitch defined so that pairs of sounds which are perceptually equidistant in pitch. 當頻率高低到人類感受到一個 pitch 差別。
+        - ![](https://i.imgur.com/p2msSxQ.png)
+    - ![](https://i.imgur.com/91weYG0.png)
+    - 最後再取出幾個最小的值與位置
+
+#### 8.2.3 Clip-Level Features
+就是上面提過的內容
+- **Volume-based features**:
+    - VSTD (volume standard deviation)
+    - VDR (volume dynamic range)
+    - Percentage of low-energy frames: proportion of frames with rms volume less than 50% of the mean volume within one clip
+    - NSR (nonsilence ratio): the ratio of the number of nonsilent frames
+- **ZCR-based features**:
+    - With a speech signal, low and high ZCR periods interlaced.
+    - ZSTD (standard deviation of ZCR)
+    - Standard deviation of first order difference
+    - Third central moment about the mean
+    - Total number of zero crossing exceeding a threshold
+    - Difference between the number of zero crossings above and below the mean values
+- **Pitch-based features**:
+    - PSTD (standard deviation of pitch)
+    - SPR (smooth pitch ratio): the percentage of frames in a clip that have similar pitch as the previous frames n Measure the percentage of voiced or music frames within a clip
+    - NPR (nonpitch ratio):percentage of frames without pitch.n Measure how many frames are unvoiced speech or noise within a clip
+
+## 9. Musical Genre Classification
+
+### 9.1 Basic features
+- 剛剛提過的features，但未必適合拿來作為音樂分類
+    - Spectral Centroid
+        - ![](https://i.imgur.com/MkOy3UW.png)
+    - Spectral Rolloff
+        - ![](https://i.imgur.com/4lnfX1K.png)
+        - It is used to distinguish voiced from unvoiced speech and music. (unvoiced speech has a high proportion of energy contained in the high-freq. range of the spectrum)
+    - Spectral Flux
+        - ![](https://i.imgur.com/PKX2gRM.png)
+    - MFCC
+        - ![](https://i.imgur.com/91weYG0.png)
+- **Analysis Window**
+    - ![](https://i.imgur.com/RlRKshZ.png)
+- 如何利用一連串高維 features vectors，來代表
+    - 直接平均
+    - 可以利用 GMM 來表達
+    - SVM
+
+### 9.2 Rhythmic content features
+- 作者音樂家，以樂理的原則去發展 features
+- 節拍（beats）的組合為節奏（rhythmics）
+    - the regularity of the rhythm, the relation of the main beat to the subbeats, and the relative strength of subbeats to the main beat
+- Steps of a common automatic beat detector 
+    1. Filterbank decomposition
+    2. Envelop extraction
+    3. **Periodicity detection** algorithm used to detect the lag at which the signal’s envelope is most similar to itself
+    - 其實就跟剛剛的 pitch detection 一樣，只是這個的相隔時間比較長
+- Based on discrete wavelet transform (DWT)
+- ![](https://i.imgur.com/mCXCzMz.png)
+- Octave:
+    - 在數理上，每一個八度音程(Octave)正好對應於不 同的振動模式，而兩個八度音程差的音在頻率上 正好差上兩倍。例如：在第0個八度的La(記為A0) 頻率為27.5 Hertz，則第1個八度的La(記為A1)頻 率即為27.5*2=55.0 Hertz。在這每一個八度的音 程中，又可再將其等分為12個頻率差相近的音， 這分別對應於【C Db D Eb E F Gb G Ab A Bb B】， 這樣的等分法就是所謂的十二平均律(Twelve- Tone Scale)。這當中每一個音符所對應的頻率， 都可以藉由數學的方程式準確的算出
+    - f1=21/12f2=1.05946f2
+- Envelope：
+    - 將一種音色波形的大致輪廓描繪出來，就可以表示出該音色在音量變化上的特性，而這個輪廓就稱為Envelope(波封)
+    - 一個波封可以用4種參數來描述，分別是Attack(起音)、Decay(衰減)、Sustain(延持)、與Release(釋音)，這四者也就是一般稱的"ADSR"
+    - ![](https://i.imgur.com/cK6qq58.png)
+    - Envelope extraction：![](https://i.imgur.com/tbPSene.png)
+    - Enhanced Autocorrelation：![](https://i.imgur.com/b4BoqBm.png)
+        - ![](https://i.imgur.com/dDD7Y0w.png)
+        - ![](https://i.imgur.com/ocF2KCZ.png)
+        - ![](https://i.imgur.com/dwC0Drg.png)
+        - ![](https://i.imgur.com/5WY4iA4.png)
+        - ![](https://i.imgur.com/Oc2czpY.png)
+        - ![](https://i.imgur.com/XOmCWg0.png)
+- Beats histogram
+    - ![](https://i.imgur.com/l7pKsVI.png)
+    - ![](https://i.imgur.com/9rtxDu9.png)
+- Pitch 也幾乎一樣的 features，只是時間長度更短
+    - Folded Pitch：把所有相同音階(各種高八度的 Do 版本)，都疊加在一起
+- 剛剛都是features，現在看實驗
+- Evaluation
+    - ![](https://i.imgur.com/V8K5w3K.png)
+    - Classification
+        - Simple Gaussian classifier
+        - Gaussian mixture model
+        - K-nearest neighbor classifier 
+    - Datasets 
+        - 20 musical genres and 3 speech genres 
+        - 100 excerpts each with 30 sec
+        - Taken from radio, CD, and mp3. The files were stored as 22050 Hz, 16-bit, mono audio files.
+    - Result
+        - ![](https://i.imgur.com/IxQtPSV.png)
+- Window size 的選擇
+    - ![](https://i.imgur.com/AfBfrOR.png)
+- Feature 大 pk
+    - BHF 與 PHF 為本 paper 提出
+    - 講半天，如果單挑，傳統的還是比較好 ==
+    - 但合一，效果還是會變好
+    - ![](https://i.imgur.com/iqEux5Y.png)
+    - 人如果只聽3 sec 準確性可以到 70%
+
+## 10. Audio Effects Detection
+
+### 10.1 Sound Effect Modeling
+- 為了把聲音裡的笑聲、掌聲等等聲音偵測出來
+- **HMM**s can describe the time evolution between states using the transition probability matrix. 
+- ![](https://i.imgur.com/BOFi8HE.png)
+- 這些 features 就是 observation，再判斷是哪個 state（哪種特效聲）
+
+### 10.2 Log-Likelihood Scores Based Decision Method
+- 但不能夠把他們都判斷為特效聲，他有可能是別的聲音
+    - 所以利用 Bayesian decision theory 設定 Log-Likelihood Scores
+    - ![](https://i.imgur.com/VH3S3js.png)
+    - 利用測試片段，分別丟入判斷是否為特效聲、非特效聲的模型
+    - 如果兩者相除很大（設定 threshold），代表高機率特效聲，也低機率非特效聲，那就可以判斷非特效聲，代表不屬於當時訓練資料內的類別
+- **Cost function**
+    - ![](https://i.imgur.com/NJg4qNN.png)
+        - $P(C_j)$ 表示他為 $C_j$ 的機率
+        - $P(\bar C_j|C_j)$ 為他是 $C_j$ 但被誤判為非 $C_j$ 的機率
+- **Bayesian threshold**
+    - ![](https://i.imgur.com/TeIWSJV.png)
+- **總覽**
+    - ![](https://i.imgur.com/H7qdtmq.png)
+- **Sound Effect Attention Model**
+    - 找出我們會特別注重的地方
+    - ![](https://i.imgur.com/1AuPYje.png)
+    - 距離波峰越近越集中、能量越高越好
+    - ![](https://i.imgur.com/QlIj9Hk.png)
+    - 結果波形會有點凹凹凸凸，所以用其 Gaussian、Gamma 波形模擬來看效果
+        - ![](https://i.imgur.com/uDReLvn.png)
+
+## 11. Semantic Concept Detection
+
+### 11.0 The Semantic Gap Problem
+- ![](https://i.imgur.com/6dZUkEq.jpg)
+- 兩份圖片的顏色、構圖也許很像，但語意內容有落差（一壘 vs 二壘安打）
+
+### 11.1 Semantic Indexing of Multimedia Content
+- Query by example（如前方的 Content-based image retrival 以圖搜圖） may not suitable for users. Users are familiar with query by keywords.（還是用關鍵字搜圖比較適合使用者）
+- semantic labeling as a machine learning problem
+    - 辨識出基礎的 label 表示語意概念
+    - 再加上這些 label 的組成，構成更複雜的語意概念
+- **Framework**
+    - ![](https://i.imgur.com/1tomVZS.png)
+- 問題 Atomic concepts are modeled using features from a single modality
+    - 所以我們還需要融合(fusion)，來描述狀況
+    - 而我們使用的是 high-level concepts (late fusion)，不是直接將 feature 串在一起(early fusion)，而是使用 model 的性質融合
+- **Learning Visual Concepts**
+    - visual scenes 或 objects 使用 GMM
+    - spatio-temporal 的 events 或 objects 使用 HMMs
+    - 在這份 paper 作者們 compare the performance of GMMs and SVMs for the classification of static scenes and objects
+- **Learning Audio Concepts**
+    - Audio-based atomic concepts
+        - Silence, rocket engine explosion, music, …
+    - HMM 被用來 model each audio concept
+    - 在一個 shot 裡面，HMMs 產生 N-best list at each audio frame 經過整個 shot，然後就平均 scores
+- **Learning Multimodal Concepts**
+    - 使用上述模型得到的影像、聽覺的分數，並且做 fusion，作為 high-level features（搭配 Bayesian Network 與 SVM 做分類）
+    - Bayesian Network：
+        - ![](https://i.imgur.com/H0OE7aj.png)
+        - ![](https://i.imgur.com/uaFuYVY.png)
+    - SVM：
+        - ![](https://i.imgur.com/vCFQWRP.png)
+- 結果：
+    - 視覺
+        - ![](https://i.imgur.com/SfHdIq0.png)
+        - ![](https://i.imgur.com/ZOOlTY9.png)
+        - SVM 比 GMM 好
+    - 聽覺：detecting rocket engine explosion
+        - ![](https://i.imgur.com/JHoWiOX.png)
+        - HMM 比 GMM 好
+    - 融合：
+        - 利用 BM（best visual + best audio）模型
+            - ![](https://i.imgur.com/26NWYZj.png)
+        - 利用 SVM 模型
+            - ![](https://i.imgur.com/WXhpTQ6.png)
+        - 比較表
+            - ![](https://i.imgur.com/nQHk7gB.png)
+            - 融合（最後兩個）分數都會比較好！
+
+## 12. Video Event Detection Using Motion Relativity and Visual Relatedness
+
+### 12.1 introduction
+- 很多 video event 必須要考慮到移動，單一靜態的畫面不足以判斷
+    - ![](https://i.imgur.com/JQjNKa9.jpg)
+- features
+    - 要表達 Motion of visual words 也就是 What and How
+    - ![](https://i.imgur.com/2mYgN0o.jpg)
+    - ![](https://i.imgur.com/PoVqcON.png)
+
+### 12.2 Methodology
+- **Bag of Visual Words(BoW)**
+    - ![](https://i.imgur.com/3S6ayrG.jpg)
+- **Motion of visual words (MH-BoW)**
+    - 得到 BoW 還不夠，我們還需要追蹤他的 Motion
+    - ![](https://i.imgur.com/tFA9e3U.png)
+    - 每一個 word 變成四個方向的向量維度 ![](https://i.imgur.com/wo2bWxG.png)
+- **Relative motion (RMH-BoW)**
+    - 有可能是鏡頭在動，所以需要分析
+    - ![](https://i.imgur.com/lqt0OMn.jpg)
+    - 表達成兩兩的相對關係，一個點變成一個 matrix 維度
+    - ![](https://i.imgur.com/J6SfZXq.png)
+- **Expansion with visual relatedness (ERMH-BoW)**
+    - feature 會遇到相似狀況
+    - ![](https://i.imgur.com/V19nHW0.png)
+    - 我們就使用 relatiedness 來處理
+    - Texture Ontology
+        - ![](https://i.imgur.com/r2uUg8i.png)
+    - 學習出 Visual Ontology
+        - 找出 feature 的相關性
+        - ![](https://i.imgur.com/f7IkuAX.png)
+        - ![](https://i.imgur.com/K6dppcW.png)
+        - LCA 最接近的祖先
+        - IC information content 越接近 root 越小
+    - ![](https://i.imgur.com/KKIuKQs.jpg)
+- framework![](https://i.imgur.com/SYGuGtU.jpg)
+- Event Classification
+    - 最後利用 SVM Detection 加上 Earth Mother Distance 判斷是否在一個 clip 裏面
+    - ![](https://i.imgur.com/TZqFNlG.png)
+    - The EMD distance 不是 one-to-one 的對應
+        - ![](https://i.imgur.com/Zm1mkQ6.png)
+- Result
+    - ![](https://i.imgur.com/tIiecSx.jpg)
+    - ![](https://i.imgur.com/ifY5NNh.jpg)
+- 視覺處理就此遇到瓶頸，分數衝不上去，所有能有的 feature 幾乎都用了，直到 deep learning 出現，時代就此改變。
+ 
