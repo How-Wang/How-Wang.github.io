@@ -402,7 +402,7 @@ associate points and vectors in space with vectors in $R_Real$</span>
 - [Step 4: Calibrate Camera](https://learnopencv.com/camera-calibration-using-opencv/)
 - [理解numpy中的meshgrid()方法](https://wangyeming.github.io/2018/11/12/numpy-meshgrid/)
 - [Python的 numpy中 meshgrid 和 mgrid 的区别和使用](https://www.cnblogs.com/shenxiaolin/p/8854197.html)
-- [Simple Stereo | Camera Calibration](https://www.youtube.com/watch?v=hUVyDabn1Mg)
+- [Simple Stereo, Camera Calibration](https://www.youtube.com/watch?v=hUVyDabn1Mg)
 - [Locate specific pixel from left and right view on the disparity map](https://answers.opencv.org/question/234639/locate-specific-pixel-from-left-and-right-view-on-the-disparity-map/)
 - [Python-OpenCV hw2筆記](https://hackmd.io/@-uoCoKkVTp2zUnRuNFpEBg/Python-OpenCV%E7%AD%86%E8%A8%982)
 - [OpenCV imshow()](https://docs.opencv.org/4.x/d7/dfc/group__highgui.html#ga453d42fe4cb60e5723281a89973ee563)
