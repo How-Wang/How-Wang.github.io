@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 電腦視覺與影像處理
-subtitle: 探索電腦可以如何辨識圖像、處理圖像
+subtitle: 探索可以如何辨識圖像、處理圖像
 categories: 電腦視覺
 tags: [電腦視覺, 多媒體]
 ---
@@ -48,9 +48,8 @@ tags: [電腦視覺, 多媒體]
 
 #### 3.4 Low : Bilateral Filter
 - [定義](https://en.wikipedia.org/wiki/Bilateral_filter)
-- <span style="background-color: #CDE8FA; display: block; padding: 2% 2% 0.5% 2%; border-radius: 15px;">${\displaystyle I^{\text{filtered}}(x)={\frac {1}{W_{p}}}\sum _{x_{i}\in \Omega }I(x_{i})f_{r}(\|I(x_{i})-I(x)\|)g_{s}(\|x_{i}-x\|),}$<br>
-    而 normalization term, ${\displaystyle {W_{p}}}$ , 被定義為<br>
-    ${\displaystyle W_{p}=\sum _{x_{i}\in \Omega }{f_{r}(\|I(x_{i})-I(x)\|)g_{s}(\|x_{i}-x\|)}}$</span>
+- <span style="background-color: #CDE8FA; display: block; padding: 2% 2% 0.5% 2%; border-radius: 15px;">${\displaystyle I^{\text{filtered}}(x)=\frac {1}{W_{p}} \sum_{x_{i} \in \Omega } I(x_i)f_r(|I(x_{i})-I(x)|)g_{s}(|x_{i}-x|)}$<br>,而 normalization term, ${\displaystyle {W_{p}}}$ , 被定義為<br>
+    ${\displaystyle W_{p}=\sum_{x_{i} \in \Omega } {f_{r}(\|I(x_{i})-I(x)\|)g_{s}(\|x_{i}-x\|)}}$
     - $I^\text{filtered}$  表示過濾完的圖片
     - ${\displaystyle I}$ 原圖
     - ${\displaystyle x}$ 原圖座標
@@ -69,16 +68,16 @@ tags: [電腦視覺, 多媒體]
 #### 4.1 High : Sobel Filter
 - 只用**圖像的梯度**作為判斷依據，且對於不同方向性的邊界是用分開的面罩(Mask)來做偵測，當梯度變化超過一個閥值，即判斷為邊界。
 - [定義](https://zh.m.wikipedia.org/zh-tw/%E7%B4%A2%E8%B2%9D%E7%88%BE%E7%AE%97%E5%AD%90)：
-- <span style="background-color: #CDE8FA; display: block; padding: 2% 2% 0.5% 2%; border-radius: 15px;">${{G_{x}} ={\begin{bmatrix}+1&0&-1\\+2&0&-2\\+1&0&-1\end{bmatrix}}* {A} \quad {\mbox{and}}\quad {G_{y}} ={\begin{bmatrix}+1&+2&+1\\0&0&0\\-1&-2&-1\end{bmatrix}}* {A} }$<br>
+- <span style="background-color: #CDE8FA; display: block; padding: 2% 2% 0.5% 2%; border-radius: 15px;">${G_{x} ={\begin{bmatrix}+1&0&-1 \\ +2&0&-2 \\ +1&0&-1\end{bmatrix}}* {A} \quad {\mbox{and}}\quad {G_{y}} ={\begin{bmatrix}+1&+2&+1 \\ 0&0&0 \\ -1&-2&-1\end{bmatrix}}* {A} }$<br>
     圖像的每一個像素的橫向及縱向梯度近似值可用以下的公式結合，來計算梯度的大小<br>
     ${ {G} ={\sqrt {G_{x} ^{2}+G_{y} ^{2}}}}$
     <br>用以下公式計算梯度方向
-    <br>${ {\Theta } = \operatorname {arctan} \left({{G_{y}} \over {G_{x}} }\right)}$</span>
+    <br>${ {\Theta } = \operatorname {arctan} \left({G_{y} \over {G_{x}} }\right)}$</span>
 - 圖示：![](https://i.imgur.com/cOPgP8j.png)
 
 #### 4.2 High : Scharr Filter
 - 就是將 Sobel 的矩陣參數改變
-- 定義：<span style="background-color: #c8d8df; display: block; padding: 2% 2% 0.5% 2%; border-radius: 15px;">${{G_{x}} ={\begin{bmatrix}+3&0&-3\\+10&0&-10\\+3&0&-3\end{bmatrix}}* {A} \quad {\mbox{and}}\quad {G_{y}} ={\begin{bmatrix}+3&+10&+3\\0&0&0\\-3&-10&-3\end{bmatrix}}* {A} }$</span>
+- 定義：<span style="background-color: #c8d8df; display: block; padding: 2% 2% 0.5% 2%; border-radius: 15px;">${ {G_{x}} = {\begin{bmatrix}+3&0&-3 \\ +10&0&-10 \\ +3&0&-3\end{bmatrix}}* {A} \quad {\mbox{and}}\quad {G_{y}} ={\begin{bmatrix}+3&+10&+3 \\ 0&0&0 \\ -3&-10&-3\end{bmatrix}}* {A} }$</span>
 - 比 Sober 更加精確(accurate)
     - ![](https://i.imgur.com/8tDH7qj.png)
 
@@ -103,16 +102,16 @@ tags: [電腦視覺, 多媒體]
 
 #### 4.4 High : Difference of Gaussian
 - 是一種將 一個原始灰度圖像的模糊圖像 從 另一幅灰度圖像 進行**增強**的算法，通過 DOG 以**降低模糊圖像的模糊度**
-- [定義](https://zh.wikipedia.org/zh-tw/%E9%AB%98%E6%96%AF%E5%B7%AE)：<span style="background-color: #e2f8f0; display: block; padding: 2% 2% 0.5% 2%; border-radius: 15px;">一幅圖像的不同 $\sigma$ 的 Gaussian Blur 表示為：
-    $g1(x,y) = G_{\sigma1}(x,y)*f(x,y)$
-    $g2(x,y) = G_{\sigma2}(x,y)*f(x,y)$<br>
+- [定義](https://zh.wikipedia.org/zh-tw/%E9%AB%98%E6%96%AF%E5%B7%AE)：<span style="background-color: #e2f8f0; display: block; padding: 2% 2% 0.5% 2%; border-radius: 15px;">一幅圖像的不同 $\sigma$ 的 Gaussian Blur 表示為：<br>
+    $g1(x,y) = G_{ \sigma 1}(x,y) * f(x,y)$ ,
+    $ g2(x,y) = G_{\sigma 2}(x,y) * f(x,y)$,
     若將上面濾波得到的 $g1$ 和 $g2$ **相減**得到：<br>
     $g1(x,y) - g2(x,y)$
-    $= G_{\sigma1}(x,y)*f(x,y) - G_{\sigma2}(x,y)*f(x,y)$
-    $= (G_{\sigma1} - G_{\sigma2})*f(x,y)$
-    $= DoG*f(x,y)$<br>
+    $= G_{\sigma1}(x,y)*f(x,y) - G_{\sigma2}(x,y) * f(x,y)$
+    $= (G_{\sigma1} - G_{\sigma2}) * f(x,y)$
+    $= DoG * f(x,y)$<br>
     在二維的情況下為
-    $DoG=f(u,v,\sigma ) = {\frac {1}{2\pi \sigma ^{2}}}\exp ^{-(u^{2}+v^{2})/(2\sigma ^{2})}-{\frac {1}{2\pi K^{2}\sigma ^{2}}}\exp ^{-(u^{2}+v^{2})/(2K^{2}\sigma ^{2})}$</span>
+    $DoG = f(u,v,\sigma ) = {\frac {1}{2\pi \sigma ^{2}}}\exp ^{-(u^{2}+v^{2})/(2\sigma ^{2})}-{\frac {1}{2\pi K^{2}\sigma ^{2}}}\exp ^{-(u^{2}+v^{2})/(2K^{2}\sigma ^{2})}$</span>
     - ![](https://i.imgur.com/vrTnKQW.png)
         - 它從一個窄高斯減去一個寬高斯，是**墨西哥帽小波**的一個近似
     - ![](https://i.imgur.com/fApui2q.png)
@@ -321,7 +320,7 @@ associate points and vectors in space with vectors in $R_Real$</span>
         - 找出內部外部參數
     - 5.Estimate the coefficients of the radial distortion by solving the linear least-squares – *Pseudo Inverse* $k = (D^TD)^{-1}D^Td$
         - 找出 distortion 參數
-    - 6.Refine all parameters by minimizing *Sum of Squared Difference SSD* $\sum_{i=1}^{n}\sum_{j=1}^{m}||m_{ij}-\hat m(A,k_1,k_2,R_i,t_i,M_j)||^2$ 
+    - 6.Refine all parameters by minimizing *Sum of Squared Difference SSD* $\sum_{i=1}^{n} \sum_{j=1}^{m} \| m_{ij} - \hat m(A,k_1,k_2,R_i,t_i,M_j) \| ^ 2$ 
         - 4.5.兩項，利用這個方式逼近參數(如深度學習)
     - Result：
         ![](https://i.imgur.com/Zh46sDW.png)
@@ -355,7 +354,7 @@ associate points and vectors in space with vectors in $R_Real$</span>
         - ![](https://i.imgur.com/gZGwLRP.png)
     - 實際結果：
         - ![](https://i.imgur.com/J2FXiPq.png)
-    - [參考影片：Simple Stereo | Camera Calibration](https://www.youtube.com/watch?v=hUVyDabn1Mg)
+    - [參考影片：Simple Stereo, Camera Calibration](https://www.youtube.com/watch?v=hUVyDabn1Mg)
         - ![](https://i.imgur.com/WSpM3cv.png)
         - ![](https://i.imgur.com/lKIPq8H.png)
 
