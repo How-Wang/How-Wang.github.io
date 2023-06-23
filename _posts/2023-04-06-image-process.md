@@ -5,6 +5,7 @@ subtitle: 探索電腦可以如何辨識圖像、處理圖像
 categories: 電腦視覺
 tags: [電腦視覺, 多媒體]
 ---
+
 ## 延伸閱讀
 - [Principal Component Analysis, PCA](https://chih-sheng-huang821.medium.com/%E6%A9%9F%E5%99%A8-%E7%B5%B1%E8%A8%88%E5%AD%B8%E7%BF%92-%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90-principle-component-analysis-pca-58229cd26e71)
 - [Multivariate Distances: Mahalanobis vs. Euclidean](https://waterprogramming.wordpress.com/2018/07/23/multivariate-distances-mahalanobis-vs-euclidean/)
@@ -32,7 +33,7 @@ tags: [電腦視覺, 多媒體]
 
 #### 3.3 Low : Gaussian Blur
 - 前提：Normal distribution（Gaussian distribution）
-    - ![](https://i.imgur.com/6iBtc0d.png)[name=][正態分佈的前世今生](https://cosx.org/2013/01/story-of-normal-distribution-1/)
+    - ![](https://i.imgur.com/6iBtc0d.png)[正態分佈的前世今生](https://cosx.org/2013/01/story-of-normal-distribution-1/)
     - ![](https://i.imgur.com/sSGcBnQ.png)
     - 會有這樣結果的原因為 Central Limit Theorem，不管從哪種 distribution (eg. uniform, exponential) 的母體中隨機取樣做平均，當樣本趨向無窮時，都會符合 normal distribution
     - ![](https://i.imgur.com/7ULwLTv.png)
@@ -72,7 +73,7 @@ tags: [電腦視覺, 多媒體]
     圖像的每一個像素的橫向及縱向梯度近似值可用以下的公式結合，來計算梯度的大小<br>
     ${ {G} ={\sqrt {G_{x} ^{2}+G_{y} ^{2}}}}$
     <br>用以下公式計算梯度方向
-    <br>${{\Theta } =\operatorname {arctan} \left({{G_{y}} \over {G_{x}} }\right)}$</span>
+    <br>${ {\Theta } = \operatorname {arctan} \left({{G_{y}} \over {G_{x}} }\right)}$</span>
 - 圖示：![](https://i.imgur.com/cOPgP8j.png)
 
 #### 4.2 High : Scharr Filter
@@ -273,16 +274,16 @@ associate points and vectors in space with vectors in $R_Real$</span>
     - 用矩陣相乘的方法表達 rigid transformation
     - 很容易的做 optimization
 - <span style="background-color: #d7f9c4; display: block; padding: 2% 2% 0.5% 2%; border-radius: 15px;">**Solution/Optimization of Homogenous Matrix**</span>
-    1. *Closed-Form Solution*
+    - 1.*Closed-Form Solution*
         - 等於 0 用
         - $Ax = 0$ => 
         - $A^tA$ = Covariance Matrix = $SVD$ = $UWU^T$
         - Smallest eigenvalue > 0 => eigenvector
-    2. *Pseudo Inverse*
+    - 2.*Pseudo Inverse*
         - 不等於 0 用
         - $Ax = b$ =>
         - $x=(A^TA)^{-1}* A^Tb$
-    3. *Sum of Squared Difference*
+    - 3.*Sum of Squared Difference*
         - 利用 max likelihood – exponential term 來逼近參數
         - $\min E = \sum(Ax-b)^2$
             - $Ax = b’$: estimation value. $b$: **ground truth**, $\min E = \sum( b’-b)^2$ 
@@ -290,7 +291,7 @@ associate points and vectors in space with vectors in $R_Real$</span>
                 - non-linear approach：LM（Levenberg-Marquardt Algorithm）
             - $Ax = b’$: estimation value. $b’’$: estimation value, $\min E = \sum( b’-b’’)^2$
                 - EM（Expected-Maximization）
-    4. *Lagrange Approach (outlier) with constraint*
+    - 4.*Lagrange Approach (outlier) with constraint*
         - ![](https://i.imgur.com/jQMpJjU.png)
         - 多一個 $\lambda(x^2 +y^2)$ 可以減少右邊兩圖 Variance 較高的情況
         - $\min E = \sum(Ax-b)^2 + \lambda(x^2 +y^2)$
@@ -307,20 +308,20 @@ associate points and vectors in space with vectors in $R_Real$</span>
         - Tangential(切線的) Distortion ![](https://i.imgur.com/4NfivJB.png)
 
 - <span style="background-color: #d7f9c4; display: block; padding: 2% 2% 0.5% 2%; border-radius: 15px;">結論 **Calibration Procedure**</span>
-    1. Print a pattern and attach it to a planar surface.
+    - 1.Print a pattern and attach it to a planar surface.
         - 就是把板子印出來
-    2. Take a few (15~20) images of the model plane under different orientations by moving either the plane or the camera.
+    - 2.Take a few (15~20) images of the model plane under different orientations by moving either the plane or the camera.
         - 拍很多照片
-    3. Detect the feature points (corner points) in the images.
+    - 3.Detect the feature points (corner points) in the images.
         - 擷取出內部邊角的點
         - ![](https://i.imgur.com/X4BZnIZ.png)
         - ![](https://i.imgur.com/fkmtjrF.png)
     - 下方之後為數學運算
-    4. Estimate the five intrinsic parameters and all the extrinsic parameters using the *closed-form solution*. 
+    - 4.Estimate the five intrinsic parameters and all the extrinsic parameters using the *closed-form solution*. 
         - 找出內部外部參數
-    5. Estimate the coefficients of the radial distortion by solving the linear least-squares – *Pseudo Inverse* $k = (D^TD)^{-1}D^Td$
+    - 5.Estimate the coefficients of the radial distortion by solving the linear least-squares – *Pseudo Inverse* $k = (D^TD)^{-1}D^Td$
         - 找出 distortion 參數
-    6. Refine all parameters by minimizing *Sum of Squared Difference SSD* $\sum_{i=1}^{n}\sum_{j=1}^{m}||m_{ij}-\hat m(A,k_1,k_2,R_i,t_i,M_j)||^2$ 
+    - 6.Refine all parameters by minimizing *Sum of Squared Difference SSD* $\sum_{i=1}^{n}\sum_{j=1}^{m}||m_{ij}-\hat m(A,k_1,k_2,R_i,t_i,M_j)||^2$ 
         - 4.5.兩項，利用這個方式逼近參數(如深度學習)
     - Result：
         ![](https://i.imgur.com/Zh46sDW.png)
