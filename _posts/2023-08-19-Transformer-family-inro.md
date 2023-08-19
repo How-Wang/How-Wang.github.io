@@ -8,7 +8,8 @@ tags: [電腦視覺, 多媒體, 論文閱讀, Transformer, Vision Transformer, S
 
 ## 0. 講解 Video
 請先觀看講解 Video 在進行下方的問題討論、paper 內容與詳細資訊
-![](//www.youtube.com/watch?v=JydFplmsT-0)
+
+<iframe width="672" height="378" src="https://www.youtube.com/embed/JydFplmsT-0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ## 1. Transformer
 
