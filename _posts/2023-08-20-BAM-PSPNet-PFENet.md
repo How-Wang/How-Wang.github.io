@@ -15,7 +15,7 @@ tags: [電腦視覺, 多媒體, 論文閱讀, BAM, PSPNet, PFENet]
 
 <a href="https://github.com/How-Wang/CV-DL-Reading-List/blob/main/PPT/BAM.pdf">BAM 與延伸模型</a>
 
-<embed src="https://how-wang.github.io/assets/pdf/BAM.pdf" type="application/pdf" />
+<embed src="https://how-wang.github.io/assets/pdf/BAM.pdf" type="application/pdf" width="100%" height="400px" />
 
 
 ## 2. Paper link
