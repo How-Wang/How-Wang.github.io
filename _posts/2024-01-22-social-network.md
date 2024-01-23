@@ -52,10 +52,8 @@ tags: [網路]
     - **Breath-first search**
         - ![](https://hackmd.io/_uploads/Byw_GdW16.png)
         - ![](https://hackmd.io/_uploads/B1NAfdbkp.png)
-:::success
-🌎 **Small world property**
-- 世界隨機選兩個人的關聯 distance，雖然有數億人，但實際 distance 很短。
-:::
+- 🌎 **Small world property**
+    - 世界隨機選兩個人的關聯 distance，雖然有數億人，但實際 distance 很短。
 - Stanley Milgram，利用寄信實驗
     - 認識就直接寄給收件人
     - 不認識就寄給「你認為會認識收件人者」
