@@ -23,7 +23,7 @@ tags: [電腦視覺, 多媒體]
 - <span style="background-color: #f7d6b9; display: block; padding: 2% 2% 0.5% 2%; border-radius: 15px;">影像調整</span>
     - **Sampling**
         - 量變
-        - 固定距離取樣
+        - 固定距離取樣 
     - **Quantization**
         - 質變
         - 將數值限定在固定範圍之內（顆粒度變大）
@@ -191,7 +191,7 @@ tags: [電腦視覺, 多媒體]
 - <span style="background-color: #c8d8df; display: block; padding: 2% 2% 0.5% 2%; border-radius: 15px;">數值意義</span>
     - precision：找出來的，正確比例
     - recall、truth positive rate：全部正確，找出的比例
-    - false positive rate：全部錯誤，找出的比例
+    - false positive rate：全部錯誤，沒找出的比例
 
 - ![](https://i.imgur.com/FFC0eUi.png)
 - ![](https://i.imgur.com/6Rpe5Uq.png)
