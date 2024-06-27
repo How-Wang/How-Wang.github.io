@@ -201,7 +201,7 @@ tags: [電腦視覺, 多媒體]
 - ROC Receiver operating characteristic(True positive rate vs False positive rate)
     - ![](https://i.imgur.com/eZnTDcN.png)
 - PR vs ROC
-    - <span style="background-color: #e2f8f0; display: block; padding: 2% 2% 0.5% 2%; border-radius: 15px;">ROC 的 false positive rate 通常都很小（分母有通常極大的 true positive），所以就算 false positive（false positive rate 的分子） 很大，因為 true positive+false positive（false positive rate 的分母）還是更大，故 ROC 的 false positive rate 保持很小，所以理論上 ROC 比較「樂觀」</span>
+    - <span style="background-color: #e2f8f0; display: block; padding: 2% 2% 0.5% 2%; border-radius: 15px;">ROC 的 false positive rate 通常都很小（分母有通常極大的 true negative），所以就算 false positive（false positive rate 的分子） 很大，因為 true negative+false positive（false positive rate 的分母）還是更大，故 ROC 的 false positive rate 保持很小，所以理論上 ROC 比較「樂觀」</span>
 - **各演算法的評估**
     - PR Curve for All Data(含 hard cut 跟 graduate transition)
         - ![](https://i.imgur.com/9weSecT.png)
